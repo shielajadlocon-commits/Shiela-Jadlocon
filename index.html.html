@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shiela Jadlocon | Administration Officer</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --cream: #F5F0E8;
+    --warm-white: #FDFAF4;
+    --ink: #1A1410;
+    --sienna: #8B4A2B;
+    --gold: #C9933A;
+    --gold-light: #E8C06A;
+    --muted: #6B6057;
+    --border: #D8CCBC;
+    --card-bg: #F9F4EC;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Mono', monospace;
+    background: var(--warm-white);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    background: var(--ink);
+    padding: 80px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-left::after {
+    content: '';
+    position: absolute;
+    top: 0; right: -1px; bottom: 0;
+    width: 2px;
+    background: var(--gold);
+  }
+
+  .hero-right {
+    background: var(--cream);
+    padding: 80px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .label::before {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(48px, 6vw, 80px);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--warm-white);
+    letter-spacing: -0.02em;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(16px, 2vw, 22px);
+    font-weight: 300;
+    color: var(--muted);
+    margin-top: 20px;
+    line-height: 1.5;
+    letter-spacing: 0.03em;
+  }
+
+  .hero-summary {
+    font-size: 12px;
+    line-height: 1.8;
+    color: var(--muted);
+    margin-top: 32px;
+    max-width: 440px;
+  }
+
+  .hero-contact {
+    margin-top: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .contact-item {
+    font-size: 11px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .contact-item:hover { color: var(--ink); }
+
+  .contact-item .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 48px;
+  }
+
+  .stat-block {}
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px;
+    font-weight: 300;
+    color: var(--sienna);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+
+  .cta-group {
+    display: flex;
+    gap: 16px;
+    margin-top: 48px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--sienna);
+    color: var(--warm-white);
+    border: none;
+    padding: 14px 32px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-primary:hover { background: var(--ink); transform: translateY(-1px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 14px 32px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .btn-outline:hover { border-color: var(--sienna); color: var(--sienna); }
+
+  /* DECORATIVE CORNER LINES */
+  .hero-right::before {
+    content: '';
+    position: absolute;
+    top: 40px; right: 40px;
+    width: 80px; height: 80px;
+    border-top: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+  }
+
+  .hero-right::after {
+    content: '';
+    position: absolute;
+    bottom: 40px; left: 40px;
+    width: 80px; height: 80px;
+    border-bottom: 1px solid var(--border);
+    border-left: 1px solid var(--border);
+  }
+
+  /* SECTIONS */
+  section { position: relative; z-index: 1; }
+
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 100px 48px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    margin-bottom: 64px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 24px;
+  }
+
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 300;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+
+  /* SKILLS */
+  .skills-section { background: var(--card-bg); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2px;
+  }
+
+  .skill-card {
+    background: var(--warm-white);
+    padding: 32px 28px;
+    border-left: 3px solid transparent;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .skill-card:hover {
+    border-left-color: var(--gold);
+    transform: translateX(4px);
+  }
+
+  .skill-icon {
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+
+  .skill-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+
+  .skill-desc {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* TOOLS */
+  .tools-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 48px;
+  }
+
+  .tool-tag {
+    background: var(--ink);
+    color: var(--gold-light);
+    padding: 8px 20px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    border: 1px solid transparent;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .tool-tag:hover {
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--ink);
+  }
+
+  /* EXPERIENCE */
+  .experience-section { background: var(--warm-white); }
+
+  .exp-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 48px;
+    padding: 48px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .exp-item:last-child { border-bottom: none; }
+
+  .exp-meta {}
+
+  .exp-period {
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+
+  .exp-company {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--muted);
+    line-height: 1.3;
+  }
+
+  .exp-right {}
+
+  .exp-role {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(22px, 2.5vw, 32px);
+    font-weight: 300;
+    color: var(--ink);
+    margin-bottom: 24px;
+    letter-spacing: -0.01em;
+  }
+
+  .exp-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .exp-bullets li {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .exp-bullets li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+  }
+
+  /* HIGHLIGHT STRIP */
+  .highlight-strip {
+    background: var(--ink);
+    padding: 80px 48px;
+    text-align: center;
+  }
+
+  .highlight-strip .quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(24px, 3vw, 42px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--warm-white);
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.4;
+  }
+
+  .highlight-strip .quote span {
+    color: var(--gold-light);
+  }
+
+  /* CONTACT */
+  .contact-section { background: var(--cream); }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .contact-intro {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 3vw, 42px);
+    font-weight: 300;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+
+  .contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .contact-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .contact-row:last-child { border-bottom: none; }
+
+  .contact-row-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .contact-row-value {
+    font-size: 14px;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .contact-row-value:hover { color: var(--sienna); }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    padding: 32px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 300;
+    color: var(--warm-white);
+    letter-spacing: 0.05em;
+  }
+
+  .footer-copy {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-left > * {
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-left > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-left > *:nth-child(2) { animation-delay: 0.2s; }
+  .hero-left > *:nth-child(3) { animation-delay: 0.3s; }
+  .hero-left > *:nth-child(4) { animation-delay: 0.4s; }
+
+  .hero-right > * {
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-right > *:nth-child(1) { animation-delay: 0.3s; }
+  .hero-right > *:nth-child(2) { animation-delay: 0.45s; }
+  .hero-right > *:nth-child(3) { animation-delay: 0.6s; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(26, 20, 16, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(201,147,58,0.15);
+  }
+
+  .nav-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--warm-white);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--gold-light); }
+
+  /* OFFSET FOR NAV */
+  .hero { padding-top: 70px; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+    .hero-left { padding: 80px 32px 48px; }
+    .hero-right { padding: 48px 32px 80px; }
+    .hero-right::before, .hero-right::after { display: none; }
+    .hero-left::after { display: none; }
+    .exp-item { grid-template-columns: 1fr; gap: 16px; }
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    nav { padding: 16px 24px; }
+    .nav-links { gap: 16px; }
+    .section-inner { padding: 64px 24px; }
+    footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-brand">Shiela F. Jadlocon</a>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="Shiela_Jadlocon_Resume_Administration_Officer.pdf" target="_blank" style="color:var(--gold-light);">Resume ↗</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="label">Available for remote work</div>
+    <h1 class="hero-name">Shiela<br><em>Jadlocon</em></h1>
+    <p class="hero-title">Administration Officer<br>Documentation & Records Management Specialist</p>
+    <p class="hero-summary">
+      10+ years providing accurate documentation support, maintaining structured filing systems,
+      and ensuring compliance-ready records across remote corporate environments.
+    </p>
+    <div class="hero-contact">
+      <a href="mailto:shiela.jadlocon@gmail.com" class="contact-item">
+        <span class="dot"></span> shiela.jadlocon@gmail.com
+      </a>
+      <a href="tel:+639615971336" class="contact-item">
+        <span class="dot"></span> +63 961 597 1336
+      </a>
+      <span class="contact-item">
+        <span class="dot"></span> Rodriguez, Rizal, Philippines
+      </span>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="label">By the numbers</div>
+    <div class="hero-stats">
+      <div class="stat-block">
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Years of experience</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Billing accuracy</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-num">2</div>
+        <div class="stat-label">Industries served</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-num">6+</div>
+        <div class="stat-label">Years fully remote</div>
+      </div>
+    </div>
+    <div class="cta-group">
+      <a href="mailto:sjadlocon060685@gmail.com" class="btn-primary">Hire Me</a>
+      <a href="Shiela_Jadlocon_Resume.pdf" target="_blank" class="btn-outline">View Resume ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- HIGHLIGHT STRIP -->
+<div class="highlight-strip">
+  <p class="quote">
+    "Meticulous documentation processor with <span>10+ years verifying, organising, and maintaining records</span> to audit-ready standards across regulated industries."
+  </p>
+</div>
+
+<!-- SKILLS -->
+<section id="skills" class="skills-section">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Core Skills</h2>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">📄</div>
+        <div class="skill-name">Documentation Processing & Verification</div>
+        <div class="skill-desc">Verifying documents for accuracy and completeness, resolving discrepancies before they affect reporting or compliance outcomes.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🗂️</div>
+        <div class="skill-name">Digital & Physical Filing Systems</div>
+        <div class="skill-desc">Managing structured filing systems ensuring all client records, contracts, and audit documentation are organised and compliance-ready at all times.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">📊</div>
+        <div class="skill-name">Logs, Trackers & System Updates</div>
+        <div class="skill-desc">Updating and maintaining financial logs, referral trackers, and operational reports with timely and precise information for management decision-making.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">✅</div>
+        <div class="skill-name">Audit Readiness & Compliance</div>
+        <div class="skill-desc">Maintaining thorough chronological documentation trails supporting audit preparation, regulatory compliance, and internal reporting requirements.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">💬</div>
+        <div class="skill-name">Supplier & Team Communication</div>
+        <div class="skill-desc">Proactively following up with internal teams and external contacts to resolve documentation gaps before they become compliance issues.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">⚙️</div>
+        <div class="skill-name">Process Adherence & Workflow</div>
+        <div class="skill-desc">Managing competing priorities and meeting documentation deadlines consistently while following structured processes independently in fully remote environments.</div>
+      </div>
+    </div>
+
+    <div class="label" style="margin-top: 60px;">Tools & Platforms</div>
+    <div class="tools-row">
+      <span class="tool-tag">Microsoft Office 365</span>
+      <span class="tool-tag">Google Workspace</span>
+      <span class="tool-tag">Excel Reporting</span>
+      <span class="tool-tag">Applied EPIC</span>
+      <span class="tool-tag">Power Broker</span>
+      <span class="tool-tag">SAP</span>
+      <span class="tool-tag">Zoom</span>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="experience-section">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Experience</h2>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-period">OCT 2020 — APR 2026</div>
+        <div class="exp-company">Condor POS Solutions<br><small style="font-size:13px;color:var(--muted);">Client: InsureLine Brokers – Clear Cut</small></div>
+      </div>
+      <div class="exp-right">
+        <h3 class="exp-role">Virtual Administrative Specialist / Bookkeeper</h3>
+        <ul class="exp-bullets">
+          <li>Provided comprehensive administrative support through accurate documentation, data entry, and recordkeeping across high-volume insurance brokerage operations.</li>
+          <li>Managed digital filing systems using Applied EPIC, ensuring all client records, contracts, and audit documentation were organised, accessible, and compliance-ready at all times.</li>
+          <li>Verified client and financial documents for completeness and accuracy, identifying and resolving discrepancies before they affected reporting or compliance outcomes.</li>
+          <li>Updated and maintained financial logs, referral trackers, and operational reports with timely and precise information, supporting management decision-making and audit preparation.</li>
+          <li>Communicated with brokers and internal team members to follow up on missing, incomplete, or incorrect documentation, ensuring records were resolved and complete.</li>
+          <li>Managed accounts receivable and bookkeeping with 100% billing and commission reconciliation accuracy over a six-year engagement.</li>
+          <li>Worked independently in a fully remote environment, managing competing priorities and meeting documentation deadlines consistently without supervision.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-period">JUN 2014 — OCT 2020</div>
+        <div class="exp-company">Lundgren & Young Insurance</div>
+      </div>
+      <div class="exp-right">
+        <h3 class="exp-role">Commercial Insurance Administrative Assistant</h3>
+        <ul class="exp-bullets">
+          <li>Processed and verified insurance application documents, converting handwritten records into accurate digital files and ensuring completeness and submission readiness for underwriters.</li>
+          <li>Maintained organised digital filing and lead pipeline data in Power Broker, eliminating duplicate entries and keeping records accurate and accessible across the team.</li>
+          <li>Communicated with producers and underwriters to follow up on document clarifications, missing information, and record updates, ensuring information flow remained timely and accurate.</li>
+          <li>Managed a large-scale policy rollover project involving document migration and data verification across systems, completing all records accurately and on schedule.</li>
+          <li>Maintained thorough chronological documentation trails supporting audit preparation, regulatory compliance, and internal reporting requirements.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Get In Touch</h2>
+    </div>
+    <div class="contact-grid">
+      <div>
+        <p class="contact-intro">Ready to bring precision and compliance-ready documentation to your team.</p>
+        <p style="font-size:12px;color:var(--muted);margin-top:24px;line-height:1.8;">
+          Open to Administration Officer and documentation support roles. Available mid-shift hours
+          (5:00 PM – 2:00 AM PHT). Let's connect.
+        </p>
+        <div style="margin-top:40px;">
+          <a href="Shiela_Jadlocon_Resume_Administration_Officer.pdf" target="_blank" class="btn-primary">Download Resume ↗</a>
+        </div>
+      </div>
+      <div class="contact-details">
+        <div class="contact-row">
+          <span class="contact-row-label">Email</span>
+          <a href="mailto:shiela.jadlocon@gmail.com" class="contact-row-value">shiela.jadlocon@gmail.com</a>
+        </div>
+        <div class="contact-row">
+          <span class="contact-row-label">Mobile</span>
+          <a href="tel:+639615971336" class="contact-row-value">+63 961 597 1336</a>
+        </div>
+        <div class="contact-row">
+          <span class="contact-row-label">Location</span>
+          <span class="contact-row-value">Rodriguez, Rizal, Philippines</span>
+        </div>
+        <div class="contact-row">
+          <span class="contact-row-label">Availability</span>
+          <span class="contact-row-value">Available mid-shift (5PM–2AM PHT)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-name">Shiela Ferrer Jadlocon</span>
+  <span class="footer-copy">Administration Officer · Philippines</span>
+</footer>
+
+</body>
+</html>
